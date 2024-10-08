@@ -67,9 +67,6 @@
                         <li class="html custom html_topbar_left">
                             <span>
                                 <a href="/gio-hang" class="text-white text-decoration-none" style="font-size:14px;">
-                                    <div class="d-inline-flex rounded-circle border" style="width: 23px">
-                                        <span class="mx-auto">1</span>
-                                    </div>
                                     <i class="im-icon-cart"></i>
                                     Giỏ hàng
                                 </a>                             
@@ -166,6 +163,13 @@
             <a class="px-3 py-2 text-white text-decoration-none h6 mb-0" href="/san-pham/ngoi-lop">
                 <span class="d-flex justify-content-between">
                     Ngói lợp
+                    <i class="fa-solid fa-chevron-right my-auto"></i>
+                </span>
+            </a>
+            <div class="border"></div>
+            <a class="px-3 py-2 text-white text-decoration-none h6 mb-0" href="/gio-hang">
+                <span class="d-flex justify-content-between">
+                    Giỏ hàng
                     <i class="fa-solid fa-chevron-right my-auto"></i>
                 </span>
             </a>

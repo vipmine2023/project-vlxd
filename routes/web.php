@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\User\OrderController as UserOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,5 +31,14 @@ Route::group(['prefix' => '/admin'], function () {
         Route::get('/edit/{id}',  [HomeController::class, 'edit'])->name('admin.edit');
         Route::post('/update',  [HomeController::class, 'update'])->name('admin.update');
         Route::post('/delete',  [HomeController::class, 'delete'])->name('admin.delete');
+    });
+});
+
+Route::prefix('/')->group(function () {
+    Route::group(['prefix' => '/thanh-toan'], function() {
+        Route::get('/', function () {
+            return view('user_views.pages.orders.showing');
+        });
+        Route::post('/xac-nhan', [UserOrderController::class, 'confirm'])->name('user.confirm');
     });
 });
