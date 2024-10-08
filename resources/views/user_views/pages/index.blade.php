@@ -124,7 +124,7 @@
                                     </div>
                                     <div class="card-body border-top mt-auto">
                                         <small
-                                            class="text-secondary">{{ config("constants.categories.$product->category_number") }}</small>
+                                            class="text-secondary">{{ config("constants.categories.$product->category") }}</small>
                                         <p class="text-height text-2-line">{{ $product->name }}</p>
                                         <div class="card-price">
                                             @if ($product->discount_price)
