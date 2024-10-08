@@ -32,11 +32,11 @@ body {
 }
 
 #logo img {
-    max-height: 88px
+    max-height: 70px
 }
 
 #logo {
-    width: 88px;
+    width: 70px;
 }
 
 .header-bottom {
@@ -109,7 +109,7 @@ body {
     }
 
     #logo img {
-        max-height: 70px
+        max-height: 64px
     }
 }
 
