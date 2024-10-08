@@ -54,7 +54,7 @@ class HomeController extends Controller
       ]);
       DB::commit();
     } catch (\Exception $e) {
-      Storage::disk('local')->delete(basename($url)); //delete new image in s3
+      Storage::disk('public')->delete(basename($url)); //delete new image in public
       DB::rollback();
       return back();
     }
