@@ -1,0 +1,36 @@
+.tbk-footer{
+  position: sticky;
+  top: 100%;
+}
+
+.text-2-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 48px;
+}
+
+.text-3-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 72px;
+}
+
+.width-100px {
+    width: 100px;
+}
+
+.body {
+    min-height: calc(100dvh - 62px);
+}
+
+.text-red {
+    color: red;
+}
+
+.ql-editor {
+    min-height: 300px;
+}
