@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user_views.pages.index', ['products' => [], 'hot_products' => []]);
 });
