@@ -17,8 +17,9 @@ class OrderController extends Controller
     ->whereIn('status', [0, 1])
     ->select('orders.*', 'order_details.quantity', 'order_details.price', 'order_details.product_name');
 
-    if ($request->get('status') && (int)$request->get('status') != 9) {
-      $orders = $orders->where('status', $request->get('status'));
+    $status_number = $request->get('status') == null ? 9 :(int)$request->get('status');
+    if ($status_number != 9) {
+      $orders = $orders->where('status', $status_number);
     }
 
     $orders = $orders->orderByDesc('orders.created_at')->offset(0)->paginate(20)->withQueryString();
