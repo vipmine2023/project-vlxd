@@ -100,7 +100,8 @@
                         <li @class([
                             'active' =>
                                 Request::path() == 'san-pham' ||
-                                Route::current()->getName() == 'product.detail',
+                                Route::current()->getName() == 'user.product.category' ||
+                                Route::current()->getName() == 'user.product.showing',
                         ]) onclick="{window.location.href = '/san-pham'}">
                             <a class="text-decoration-none">
                                 Sản phẩm
@@ -139,7 +140,7 @@
                 </span>
             </a>
             <div class="border"></div>
-            <a class="px-3 py-2 text-white text-decoration-none h6 mb-0" href="/san-pham/keo-va-vua-xay-dung">
+            <a class="px-3 py-2 text-white text-decoration-none h6 mb-0" href="/san-pham/keo-vua-xay-dung">
                 <span class="d-flex justify-content-between">
                     Keo/Vữa xây dựng
                     <i class="fa-solid fa-chevron-right my-auto"></i>
@@ -192,13 +193,12 @@
         event.stopPropagation()
     })
     $('#category-search').change((event) => {
-
         switch (parseInt($('#category-search').val())) {
             case 1:
                 $('.searchform').attr('action', '/san-pham/xi-mang')
                 break;
             case 2:
-                $('.searchform').attr('action', '/san-pham/keo-va-vua-xay-dung')
+                $('.searchform').attr('action', '/san-pham/keo-vua-xay-dung')
                 break;
             case 3:
                 $('.searchform').attr('action', '/san-pham/gach-da-op-lat')

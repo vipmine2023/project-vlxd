@@ -40,5 +40,6 @@
     </main>
 
     @include('/user_views/layouts/footer')
+    <script src="{{ asset('/user/js/snippets.js') }}"></script>
     @yield('extended-script')
 </body>

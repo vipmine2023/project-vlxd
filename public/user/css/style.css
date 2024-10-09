@@ -1252,6 +1252,15 @@ hr,
     margin-right: auto !important;
 }
 
+.text-1-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: 24px;
+}
+
+
 .text-2-line {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -1340,4 +1349,18 @@ hr,
 
 .marker li::marker {
     content: '- ';
+}
+
+.disabled-button {
+    opacity: .6;
+    pointer-events: none;
+}
+
+.card-item {
+    max-width: 264px;
+    cursor: pointer;
+}
+
+.card-item:hover {
+    box-shadow: 0 0 6px rgb(94, 183, 255);
 }

@@ -11,7 +11,7 @@ class Product extends Model
     protected $table = 'products';
     protected $primaryKey = 'id';
 
-    protected $keyType = 'bigInteger';
+    protected $keyType = 'integer';
     public $timestamps = true;
     public $incrementing = true;
 
