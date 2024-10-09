@@ -65,7 +65,7 @@
                             <div class="col-6 col-lg-4">
                                 <div class="card card-item mx-auto" onclick="window.location.href='{{ '/san-pham/'.$product->id }}'">
                                     <div class="px-2 pt-2">
-                                        <img src="{{ asset($product->image_url) }}" width="264" height="264">
+                                        <img src="{{ asset($product->image_url) }}" width="264" height="240" style="height: 240px">
                                     </div>
                                     <div class="card-body pt-0">
                                         <hr>
@@ -93,6 +93,7 @@
             </div>
         </div>
     </div>
+    @include('/user_views/components/toast_message')
 @endsection
 
 @section('extended-script')

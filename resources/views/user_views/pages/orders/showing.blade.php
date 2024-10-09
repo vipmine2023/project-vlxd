@@ -89,35 +89,38 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($cart_items as $cart_item)
                             <tr>
-                                <td>
-                                    1 x 
-                                    <a href="/san-pham/1" class="text-decoration-none">Sản phẩm 001</a>
+                                <td class="d-flex">
+                                    @if($cart_item->options->status != 1)
+                                    <i class="fa-solid fa-triangle-exclamation text-danger" style="font-size: 20px"></i>
+                                    @else
+                                    <i class="fa-solid fa-circle-check text-success" style="font-size: 20px"></i>
+                                    @endif
+                                    <span class="ms-2">
+                                        {{ $cart_item->qty }} x
+                                        <a href="{{ '/san-pham/'.$cart_item->id }}" class="text-decoration-none">{{ $cart_item->name }}</a>
+                                    </span>
+
                                 </td>
-                                <td class="text-right">{{ number_format((1 * 150000), 0, 0, '.') }} đ</td>
+                                <td class="text-right">{{ number_format(($cart_item->price * $cart_item->qty), 0, 0, '.') }} đ</td>
                             </tr>
-                            <tr>
-                                <td>
-                                    2 x 
-                                    <a href="/san-pham/1" class="text-decoration-none">Sản phẩm 002</a>
-                                </td>
-                                <td class="text-right">{{ number_format((2 * 150000), 0, 0, '.') }} đ</td>
-                            </tr>
+                            @endforeach
 
                             <tr class="fw-bold">
                                 <td>Tổng</td>
-                                <td class="text-right">{{ number_format((2 * 150000 + 150000), 0, 0, '.') }} đ</td>
+                                <td class="text-right">{{ number_format(($total), 0, 0, '.') }} đ</td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="form-check mx-2">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod" value="1" checked>
-                        <label class="form-check-label" for="paymentMethod">
+                        <input class="form-check-input" type="radio" name="payment_method" id="payment_method" value="1" checked>
+                        <label class="form-check-label" for="payment_method">
                             Trả tiền mặt khi nhận hàng
                         </label>
                     </div>
                     <div class="pt-2 mt-auto">
-                        <button class="btn btn-primary w-100">Đặt hàng</button>
+                        <button class="btn btn-primary w-100" @disabled(count($invalid_items)> 0)>Đặt hàng</button>
                         <small class="pt-1">
                             Thông tin cá nhân của bạn sẽ được sử dụng để xử lý đơn hàng, tăng trải nghiệm sử dụng website, và cho các mục đích cụ thể khác đã được mô tả trong chính sách riêng tư.
                         </small>
@@ -126,6 +129,7 @@
             </div>
         </div>
     </form>
+    @include('/user_views/components/toast_message')
 </section>
 @endsection
 

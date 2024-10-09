@@ -21,18 +21,19 @@
                 @foreach ($cart_items as $cart_item)
                 <tr>
                     <td class="align-middle" width="20">
+                        @if($cart_item->options->status != 1)
+                        <i class="fa-solid fa-triangle-exclamation text-danger" style="font-size: 20px"></i>
+                        @endif
                         <form action="{{ route('user.cart.remove') }}" method="POST">
                             @csrf
                             <input type="hidden" name="cart_id" value="{{ $cart_item->rowId }}">
-                            <button class="btn">
-                                <i class="fa-solid fa-trash text-primary"></i>
-                            </button>
+                            <i class="fa-solid fa-trash text-primary pointer" style="font-size: 20px" onclick="this.parentElement.submit()"></i>
                         </form>
                     </td>
                     <td width="180">
-                        <img src="{{ asset($cart_item->options->image_url) }}" alt="product" class="border" width="160" height="160">
+                        <img src="{{ asset($cart_item->options->image_url) }}" alt="product" class="border" width="160" height="160" style="height: 135px; min-width: 160px;">
                     </td>
-                    <td class="align-middle">
+                    <td class="align-middle" style="min-width: 300px">
                         <a href="{{ '/san-pham/'.$cart_item->id }}" class="text-decoration-none fs-5">{{ $cart_item->name }}</a>
                     </td>
                     <td class="align-middle" width="100">
@@ -42,11 +43,11 @@
                             <form action="{{ route('user.cart.update_quantity') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="cart_id" value="{{ $cart_item->rowId }}">
-                                <input type="number" name="quantity" id="quantity" min="1" max="10" value="{{ $cart_item->qty }}" onchange="updateQuantity(this)" style="width: 60px">
+                                <input type="number" name="quantity" id="quantity" min="1" max="10" value="{{ $cart_item->qty }}" @disabled($cart_item->options->status != 1) onchange="updateQuantity(this)" style="width: 60px">
                             </form>
-                        </div>      
+                        </div>
                     </td>
-                    <td class="text-right align-middle fw-bold">
+                    <td class="text-right align-middle fw-bold" width="100">
                         {{ number_format($cart_item->price * $cart_item->qty, 0, 0, '.') }}đ
                     </td>
                 </tr>
@@ -60,9 +61,10 @@
             <span class="text-red">{{ number_format($total, 0, 0, '.') }}đ</span>
         </p>
         <div class="d-flex justify-content-end">
-            <a href="/thanh-toan" @class(['btn btn-primary', 'disabled-button' => count($cart_items) == 0])>Thanh toán</a>
-        </div>  
+            <a href="/thanh-toan" @class(['btn btn-primary', 'disabled-button'=> count($cart_items) == 0 || count($invalid_items) > 0])>Thanh toán</a>
+        </div>
     </div>
+    @include('/user_views/components/toast_message')
 </section>
 @endsection
 

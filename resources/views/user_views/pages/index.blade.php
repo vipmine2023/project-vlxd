@@ -35,8 +35,8 @@
                 <div class="ms-auto my-auto">
                     <a href="/san-pham/xi-mang" class="text-decoration-none">
                         <div class="d-flex">
-                            <h5 class="mb-0 text-primary text-toboki">Xem thêm</h5>
-                            <i class="fa-solid fa-arrow-right my-auto ms-2 text-toboki"></i>
+                            <h5 class="mb-0 text-primary">Xem thêm</h5>
+                            <i class="fa-solid fa-arrow-right my-auto ms-2"></i>
                         </div>
                     </a>
                 </div>
