@@ -11,20 +11,6 @@ use Illuminate\Database\Query\Builder;
 
 class OrderController extends Controller
 {
-  // public function index(Request $r) {
-  //   $products = DB::table('products');
-  //   if ($r->get('category-number')) {
-  //       $products = $products->where('category', $r->get('category-number'));
-  //   }
-  //   if ($r->get('search-key')) {
-  //       $products = $products->where(function (Builder $query) use($r) {
-  //                       $query->where('name', 'LIKE', '%'.$r->get('search-key').'%')
-  //                           ->orWhere('code', 'LIKE', '%'.$r->get('search-key').'%');
-  //                   });
-  //   }
-  //   $products = $products->offset(0)->paginate(20)->withQueryString();
-  //   return view('admin.index', compact('products'));
-  // }
   public function index(Request $request) {
     $orders = DB::table('orders')
     ->join('order_details', 'orders.id', '=', 'order_details.order_id')
