@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
 use App\Http\Controllers\User\CartController as UserCartController;
 use App\Http\Controllers\User\ProductController as UserProductController;
+use App\Http\Controllers\Admin\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,12 @@ Route::group(['prefix' => '/admin'], function () {
         Route::get('/edit/{id}',  [HomeController::class, 'edit'])->name('admin.edit');
         Route::post('/update',  [HomeController::class, 'update'])->name('admin.update');
         Route::post('/delete',  [HomeController::class, 'delete'])->name('admin.delete');
+
+        Route::group(['prefix' => '/hoa-don'], function () {
+            Route::get('/',  [OrderController::class, 'index'])->name('admin.orders.index');
+            Route::post('/update',  action: [OrderController::class, 'update'])->name('admin.orders.update');
+            Route::get('/{id}/chi-tiet',  [OrderController::class, 'detail'])->name('admin.orders.detail');
+        });
     });
 });
 

@@ -18,16 +18,9 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/admin/tin-tuc">
+        <a class="nav-link collapsed" href="/admin/hoa-don">
           <i class="bi bi-newspaper"></i>
-          <span>Danh Sách Bài Viết</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/admin/tin-tuc/new">
-          <i class="bi bi-plus-circle"></i>
-          <span>Tạo Mới Bài Viết</span>
+          <span>Danh Sách Hóa Đơn</span>
         </a>
       </li>
     </ul>
