@@ -26,6 +26,7 @@ class StoreOrderRequest extends FormRequest
             'phone' => 'required|numeric|digits_between:10,11',
             'receiver_name' => 'required|max:255',
             'address' => 'required|max:1000',
+            'payment_method' => 'required|numeric',
             'note' => 'max:1000'
         ];
     }

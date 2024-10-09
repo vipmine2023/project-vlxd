@@ -13,32 +13,13 @@ class CartController extends Controller
         if (Cart::count() == 0) {
             return view('user_views.pages.carts.showing', [ 'cart_items' => [], 'total' => 0 ]);
         }
-        $product_ids = Cart::content()->map(function($item) {
-            return $item->id;
-        })->values();
-        $products = Product::whereIn("id", $product_ids)->get();
-        if (count($products) == 0) {
-            return view('user_views.pages.carts.showing', [ 'cart_items' => [], 'total' => 0 ]);
-        }
-        foreach(Cart::content() as $item) {
-            foreach($products as $product) {
-                if ($product->id != $item->id) {
-                    continue;
-                }
-                $item->name = $product->name;
-                $item->price = $product->price;
-                $item->options->status = $product->status;
-                $item->options->category = $product->category;
-                $item->options->image_url = $product->image_url;
-            }
-        }
-        return view('user_views.pages.carts.showing', [ 'cart_items' => Cart::content(), 'total' => Cart::subtotal(0, 0, '') ]);
+        return view('user_views.pages.carts.showing', [ 'cart_items' => Cart::content(), 'invalid_items' => $this->update_cart(), 'total' => Cart::subtotal(0, 0, '') ]);
     }
 
     public function creator(Request $request) {
-        $product = Product::where('status', '!=', 0)->where('id', $request->product_id)->first();
+        $product = Product::where('status', '=', 1)->where('id', $request->product_id)->first();
         if (!$product) {
-            return redirect()->back()->with('error','Invalid Product');
+            return redirect()->back()->with('error','Vật phẩm không hợp lệ.');
         }
         $is_updated = false;
         $messages = [
@@ -80,11 +61,11 @@ class CartController extends Controller
 
     public function removing(Request $request) {
         if (!$request->cart_id) {
-            return redirect()->back()->with('error','Invalid'); 
+            return redirect()->back()->with('error','Vật phẩm trong giỏ hàng không hợp lệ.'); 
         }
         $cart = Cart::get($request->cart_id);
         if (!$cart) {
-            return redirect()->back()->with('error','Invalid Cart');
+            return redirect()->back()->with('error','Vật phẩm trong giỏ hàng không hợp lệ.');
         }
         Cart::remove($cart->rowId);
         return redirect()->back();
@@ -92,12 +73,18 @@ class CartController extends Controller
 
     public function updater(Request $request) {
         if (!$request->cart_id || $request->quantity < 1 || $request->quantity > 10) {
-            return redirect()->back()->with('error','Invalid'); 
+            return redirect()->back()->with('error','Vật phẩm trong giỏ hàng không hợp lệ.'); 
         }
         $cart = Cart::get($request->cart_id);
         if (!$cart) {
-            return redirect()->back()->with('error','Invalid Cart');
+            return redirect()->back()->with('error','Vật phẩm trong giỏ hàng không hợp lệ.');
         }
+        $product = Product::where('status', '!=', 0)->where('id', $cart->id)->first();
+        $cart->name = $product->name;
+        $cart->price = $product->price;
+        $cart->options->status = $product->status;
+        $cart->options->category = $product->category;
+        $cart->options->image_url = $product->image_url;
         Cart::update($cart->rowId, $request->quantity);
         return redirect()->back();
     }

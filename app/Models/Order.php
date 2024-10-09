@@ -11,7 +11,7 @@ class Order extends Model
     protected $table = 'orders';
     protected $primaryKey = 'id';
 
-    protected $keyType = 'bigInteger';
+    protected $keyType = 'integer';
     public $timestamps = true;
     public $incrementing = true;
 
@@ -20,6 +20,12 @@ class Order extends Model
         'code',
         'status',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'email',
+        'phone',
+        'receiver_name',
+        'address',
+        'note',
+        'payment_method'
     ];
 }
