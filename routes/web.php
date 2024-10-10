@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
 use App\Http\Controllers\User\CartController as UserCartController;
 use App\Http\Controllers\User\ProductController as UserProductController;
+use App\Http\Controllers\User\HomeController as UserHomeController;
 use App\Http\Controllers\Admin\OrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +19,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('user_views.pages.index', ['products' => [], 'hot_products' => []]);
-});
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/login',  [LoginController::class, 'login'])->name('admin.login');
@@ -44,6 +41,8 @@ Route::group(['prefix' => '/admin'], function () {
 });
 
 Route::prefix('/')->group(function () {
+    Route::get('/', [UserHomeController::class, 'index'])->name('user.index');
+
     Route::group(['prefix' => '/thanh-toan'], function() {
         Route::get('/', [UserOrderController::class, 'showing'])->name('user.view_payment');
         Route::post('/xac-nhan', [UserOrderController::class, 'confirm'])->name('user.confirm');

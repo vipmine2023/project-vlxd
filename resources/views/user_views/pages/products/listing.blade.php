@@ -62,7 +62,7 @@
                 @if (count($products) > 0)
                     <div class="row product product-list">
                         @foreach ($products as $product)
-                            <div class="col-6 col-lg-4">
+                            <div class="col-12 col-lg-4">
                                 <div class="card card-item mx-auto" onclick="window.location.href='{{ '/san-pham/'.$product->id }}'">
                                     <div class="px-2 pt-2">
                                         <img src="{{ asset($product->image_url) }}" width="264" height="240" style="height: 240px">

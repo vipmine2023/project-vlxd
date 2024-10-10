@@ -67,6 +67,15 @@
                         <li class="html custom html_topbar_left">
                             <span>
                                 <a href="/gio-hang" class="text-white text-decoration-none" style="font-size:14px;">
+                                    @if(Cart::count() > 0)
+                                    <span class="icon-badge-cart-total">
+                                        <div class="d-flex justify-content-center">
+                                            <span class="my-auto fw-bold">
+                                                {{ Cart::content()->count() }}
+                                            </span>
+                                        </div>
+                                    </span>
+                                    @endif
                                     <i class="im-icon-cart"></i>
                                     Giỏ hàng
                                 </a>                             

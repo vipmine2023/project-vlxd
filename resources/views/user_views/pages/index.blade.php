@@ -28,77 +28,50 @@
 
         {{-- Items --}}
         <div class="container py-4 product">
-            <div class="d-flex">
-                <div>
-                    <h3 class="text-uppercase">Xi măng</h3>
-                </div>
-                <div class="ms-auto my-auto">
-                    <a href="/san-pham/xi-mang" class="text-decoration-none">
-                        <div class="d-flex">
-                            <h5 class="mb-0 text-primary">Xem thêm</h5>
-                            <i class="fa-solid fa-arrow-right my-auto ms-2"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="product-list">
-                <div class="row px-2 mx-auto">
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="card card-item mx-auto" onclick="window.location.href='/san-pham/1'">
-                            <img src="{{ asset('user/image/logo.png') }}" width="264" height="264">
-                            <div class="card-body">
-                                <hr>
-                                <p class="mb-1 fw-bold">Sản phẩm 001</p>
-                                <small class="mb-1">{{ config("constants.categories.1") }}</small>
-                                <p class="mb-1 fw-bold">Giá: {{ number_format(1000000, 0,0, '.') }}đ</p>
-                                <form action="{{ route('user.cart.add') }}" method="POST" class="mb-0">
-                                    @csrf
-                                    <button @class(['btn btn-primary w-100', 'disabled-button' => 1 != 1]) class="btn btn-primary w-100">Thêm vào giỏ hàng</button>
-                                </form>
+            @foreach ($products as $key => $product)
+                @if (count($product) > 0)
+                <div class="d-flex">
+                    <div>
+                        <p class="text-uppercase h3 fw-bold">{{ config("constants.showing.$key.name") }}</p>
+                    </div>
+                    <div class="ms-auto my-auto">
+                        <a href="{{ config("constants.showing.$key.url") }}" class="text-decoration-none">
+                            <div class="d-flex">
+                                <h5 class="mb-0 text-primary">Xem thêm</h5>
+                                <i class="fa-solid fa-arrow-right my-auto ms-2"></i>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
-            </div>
+                <div class="product-list pb-3">
+                    <div class="row px-2 mx-auto">
+                        @foreach ($product as $item)
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="card card-item mx-auto" onclick="window.location.href='{{ '/san-pham/'.$item->id }}'">
+                                <div class="px-2 pt-2">
+                                    <img src="{{ asset($item->image_url) }}" width="264" height="240" style="height: 240px">
+                                </div>
+                                <div class="card-body pt-0">
+                                    <hr>
+                                    <p class="text-1-line mb-1 fw-bold">{{ $item->name }}</p>
+                                    <small class="mb-1">{{ config("constants.categories.$item->category") }}</small>
+                                    <p class="mb-1 fw-bold">Giá: {{ number_format($item->price, 0,0, '.') }}đ</p>
+                                    <form action="{{ route('user.cart.add') }}" method="POST" class="mb-0">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $item->id }}">
+                                        <button @class(['btn btn-primary w-100', 'disabled-button' => $item->status != 1]) class="btn btn-primary w-100">Thêm vào giỏ hàng</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+            @endforeach
         </div>
     </div>
 @endsection
 
 @section('extended-script')
-    <script>
-        const hotProductTotal = {{ count($hot_products) }}
-        $('.item-slider').slick({
-            arrows: false,
-            infinite: true,
-            adaptiveHeight: true,
-            slidesToScroll: 1,
-            slidesToShow: hotProductTotal > 3 ? 3 : hotProductTotal,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            speed: 1000,
-            dots: false,
-            responsive: [{
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: hotProductTotal > 3 ? 3 : hotProductTotal,
-                        slidesToScroll: 1
-                    }
-                },
-                {
-                    breakpoint: 867,
-                    settings: {
-                        slidesToShow: hotProductTotal > 2 ? 2 : hotProductTotal,
-                        slidesToScroll: 1
-                    }
-                },
-                {
-                    breakpoint: 576,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
-        });
-    </script>
 @endsection
