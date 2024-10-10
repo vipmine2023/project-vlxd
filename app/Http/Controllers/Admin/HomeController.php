@@ -48,6 +48,7 @@ class HomeController extends Controller
         'name' => $input['name'],
         'description' => $input['description'],
         'image_url' => $url,
+        'status' => 1,
         'price' => $input['price'],
         'category' => $input['category']
       ]);
