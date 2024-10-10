@@ -21,6 +21,7 @@ class LoginController extends Controller
     function checkLogin(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        $credentials['type'] = 'admin';
         if (Auth::attempt($credentials)) 
         {
             if (Auth::user()->type == 'admin') {
