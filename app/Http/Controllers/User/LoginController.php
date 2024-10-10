@@ -50,6 +50,7 @@ class LoginController extends Controller
             return redirect()->back()->with("error","Register Fail");
         }
         Auth::login($user);
+        return redirect()->route('user.index');
     }
 
     public function logout() {
