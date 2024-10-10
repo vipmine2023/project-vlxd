@@ -22,8 +22,7 @@ class HomeController extends Controller
     }
     if ($r->get('search-key')) {
         $products = $products->where(function (Builder $query) use($r) {
-                        $query->where('name', 'LIKE', '%'.$r->get('search-key').'%')
-                            ->orWhere('code', 'LIKE', '%'.$r->get('search-key').'%');
+                        $query->where('name', 'LIKE', '%'.$r->get('search-key').'%');
                     });
     }
     $products = $products->offset(0)->paginate(20)->withQueryString();
