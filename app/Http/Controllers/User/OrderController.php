@@ -7,6 +7,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Cart;
@@ -20,8 +21,12 @@ class OrderController extends Controller
         if ($cart_total == 0) {
             return redirect('/gio-hang')->with("empty_cart","Giỏ hàng rỗng");
         }
-        
-        return view('user_views.pages.orders.showing', [ 'cart_items' => Cart::content(), 'invalid_items' => $this->update_cart(), 'total' => Cart::subtotal(0, 0, '') ]);
+
+        return view('user_views.pages.orders.showing', [ 
+            'cart_items' => Cart::content(), 
+            'invalid_items' => $this->update_cart(), 
+            'total' => Cart::subtotal(0, 0, '')
+        ]);
     }
 
     public function confirm(StoreOrderRequest $request) {
@@ -42,6 +47,11 @@ class OrderController extends Controller
         $order->address = $request->address;
         $order->note = $request->note;
         $order->payment_method = $request->payment_method;
+
+        if (Auth::check()) {
+            $order->created_by = Auth::user()->id;
+        }
+
         DB::beginTransaction();
         try {
             $order->save();

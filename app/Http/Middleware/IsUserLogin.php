@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Auth;
 
-class IsLogin
+class IsUserLogin
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,7 @@ class IsLogin
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check()) {
-            return redirect()->route('admin.login');
-        }
-        if (Auth::user()->type != 'admin') {
-            return redirect()->route('user.index');
+            return redirect()->route('user.login.index');
         }
         return $next($request);
     }

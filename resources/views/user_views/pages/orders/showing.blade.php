@@ -19,7 +19,7 @@
                             Địa chỉ email
                             (<span class="text-red">*</span>)
                         </label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" value="{{ old('email') }}">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" value="{{ old('email') ? old('email') : (Auth::check() ? Auth::user()->email : '') }}">
                         @if ($errors->get('email'))
                         <small class="mb-0 ms-2 text-danger">
                             {{ $errors->get('email')[0] }}
@@ -43,7 +43,7 @@
                             Họ và tên
                             (<span class="text-red">*</span>)
                         </label>
-                        <input type="text" class="form-control" id="receiver_name" name="receiver_name" placeholder="Nhập họ và tên" value="{{ old(key: 'receiver_name') }}">
+                        <input type="text" class="form-control" id="receiver_name" name="receiver_name" placeholder="Nhập họ và tên" value="{{ old(key: 'receiver_name') ? old('receiver_name') : (Auth::check() ? Auth::user()->name : '') }}">
                         @if ($errors->get('receiver_name'))
                         <small class="mb-0 ms-2 text-danger">
                             {{ $errors->get('receiver_name')[0] }}

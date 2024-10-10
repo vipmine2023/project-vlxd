@@ -983,7 +983,7 @@ hr,
     background-color: #f8eece;
 }
 
-.bg-category-menu a {
+.bg-category-menu>div>nav>ul>li>a {
     color: rgb(0, 123, 172) !important;
 }
 
@@ -1384,4 +1384,8 @@ hr,
 
 .icon-badge-cart-total>div>span {
     font-size: 12px;
+}
+
+.order-index .small.text-muted {
+    display: none;
 }

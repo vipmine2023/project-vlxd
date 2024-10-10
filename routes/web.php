@@ -6,6 +6,7 @@ use App\Http\Controllers\User\OrderController as UserOrderController;
 use App\Http\Controllers\User\CartController as UserCartController;
 use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Controllers\User\HomeController as UserHomeController;
+use App\Http\Controllers\User\LoginController as UserLoginController;
 use App\Http\Controllers\Admin\OrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,22 @@ Route::group(['prefix' => '/admin'], function () {
 
 Route::prefix('/')->group(function () {
     Route::get('/', [UserHomeController::class, 'index'])->name('user.index');
+
+    Route::get('/dang-nhap', [UserLoginController::class, 'login_index'])->name('user.login.index');
+    Route::post('/login', [UserLoginController::class, 'login'])->name('user.login');
+
+    Route::get('/dang-ki', [UserLoginController::class, 'register_index'])->name('user.register.index');
+    Route::post('/register', [UserLoginController::class, 'register'])->name('user.register');
+
+    Route::get('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
+
+    Route::group(['prefix' => '/thong-tin', 'middleware' => 'is.user.login'], function() {
+        Route::get('/danh-sach-don-hang', [UserHomeController::class, 'order_index'])->name('user.orders.index');
+        Route::group(['prefix' => '/don-hang'], function() {
+            Route::get('/{id}', [UserHomeController::class, 'order_showing'])->name('user.orders.showing');
+            Route::get('/cancel/{id}', [UserHomeController::class, 'cancel_order'])->name('user.orders.cancel');
+        });
+    });
 
     Route::group(['prefix' => '/thanh-toan'], function() {
         Route::get('/', [UserOrderController::class, 'showing'])->name('user.view_payment');

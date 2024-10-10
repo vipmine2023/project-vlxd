@@ -90,8 +90,21 @@
                 </div>
                 <!-- Mobile Right Elements -->
                 <div class="flex-col show-for-medium flex-right">
-                    <ul class="mobile-nav nav nav-right ">
-
+                    <ul class="mobile-nav nav nav-right text-white">
+                        <li>
+                            <a href="/gio-hang" class="text-white text-decoration-none" style="font-size:14px;">
+                                @if(Cart::count() > 0)
+                                <span class="icon-badge-cart-total">
+                                    <div class="d-flex justify-content-center">
+                                        <span class="my-auto fw-bold">
+                                            {{ Cart::content()->count() }}
+                                        </span>
+                                    </div>
+                                </span>
+                                @endif
+                                <i class="im-icon-cart"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -100,7 +113,7 @@
             </div>
         </div>
         <div id="top-bar" class="header-top border-top bg-category-menu hide-for-sticky nav-dark hide-for-medium">
-            <div class="container d-flex px-4">
+            <div class="container d-flex justify-content-between px-4">
                 <nav class="site-nav">
                     <ul class="fw-bold">
                         <li @class(['active' => Request::path() == '/']) onclick="{window.location.href = '/'}">
@@ -118,6 +131,37 @@
                         </li>
                     </ul>
                 </nav>
+                <div class="ms-auto me-5 d-flex">
+                    <a href="#" class="my-auto" data-bs-toggle="dropdown" style="width: 36px; height: 36px">
+                        <img src="{{ asset('tbk/img/avatar.jpg') }}" alt="Profile" class="rounded-circle" width="36" height="36">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        @if (Auth::check())
+                            <li class="dropdown-header">
+                                <p class="mb-0">{{ Auth::user()->name }}</p>
+                            </li>
+                            <li class="mb-0 border-top">
+                                <a class="dropdown-item d-flex align-items-center" href="/thong-tin/danh-sach-don-hang">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Danh sách đơn hàng</span>
+                                </a>
+                            </li>
+                            <li class="mb-0 border-top">
+                                <a class="dropdown-item d-flex align-items-center" href="/logout">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </li>
+                        @else
+                            <li class="mb-0">
+                                <a class="dropdown-item d-flex align-items-center" href="/dang-nhap">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Đăng nhập</span>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="header-bg-container fill">
@@ -183,6 +227,28 @@
                     <i class="fa-solid fa-chevron-right my-auto"></i>
                 </span>
             </a>
+            @if (Auth::check())
+            <a class="px-3 py-2 text-white text-decoration-none h6 mb-0 mt-auto" href="/thong-tin/danh-sach-don-hang">
+                <span class="d-flex justify-content-between">
+                    Danh sách đơn hàng
+                    <i class="fa-solid fa-chevron-right my-auto"></i>
+                </span>
+            </a>
+            <div class="border"></div>
+            <a class="px-3 py-2 text-white text-decoration-none h6 mb-0" href="/logout">
+                <span class="d-flex justify-content-between">
+                    Đăng xuất
+                    <i class="fa-solid fa-chevron-right my-auto"></i>
+                </span>
+            </a>
+            @else
+            <a class="px-3 py-2 text-white text-decoration-none h6 mb-0 mt-auto" href="/dang-nhap">
+                <span class="d-flex justify-content-between">
+                    Đăng nhập
+                    <i class="fa-solid fa-chevron-right my-auto"></i>
+                </span>
+            </a>
+            @endif
         </div>
     </div>
 </header>

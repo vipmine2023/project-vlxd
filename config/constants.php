@@ -22,6 +22,16 @@ return [
         2 => 'Hết hàng'
     ],
 
+    'order_statuses' => [
+        0 => 'Chờ xác nhận',
+        1 => 'Xác nhận',
+        2 => 'Đã bị hủy'
+    ],
+
+    'payment_methods' => [
+        1 => 'Thanh toán tiền mặt'
+    ],
+
     'showing' => [
         'cement' => [
             'name' => 'Xi măng',
