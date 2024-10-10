@@ -12,10 +12,7 @@ use Illuminate\Database\Query\Builder;
 class OrderController extends Controller
 {
   public function index(Request $request) {
-    $orders = DB::table('orders')
-    ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-    ->whereIn('status', [0, 1])
-    ->select('orders.*', 'order_details.quantity', 'order_details.price', 'order_details.product_name');
+    $orders = DB::table('orders');
 
     $status_number = $request->get('status') == null ? 9 :(int)$request->get('status');
     if ($status_number != 9) {
@@ -28,12 +25,13 @@ class OrderController extends Controller
 
   public function update(Request $request) {
     $id = (int)$request->id;
+    $status = (int)$request->status;
     $order = DB::table('orders')->where('id', $id)->first();
     if (!$order) {
       return redirect()->route('admin.orders.index');
     }
     $order_params = [
-      'status' => 1
+      'status' => $status
     ];
     DB::beginTransaction();
     try {
@@ -47,16 +45,15 @@ class OrderController extends Controller
   }
 
   public function detail($id) {
-    $order = DB::table('orders')
-      ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-      ->where('orders.id', $id)
-      ->select('orders.*', 'order_details.quantity', 'order_details.price', 'order_details.product_name')
-      ->first();
-    if (!$order) {
+    $order_details = DB::table('order_details')
+        ->join('orders', 'order_details.order_id', '=', 'orders.id')
+        ->where('order_id', $id)
+        ->select('order_details.*', 'orders.code', 'orders.status')
+        ->get();
+    if (!$order_details) {
         return redirect()->route('admin.orders.index');
     }
-    $order->price = number_format($order->price, 0, '', '.');
 
-    return view('admin.orders.detail', ['order' => $order]);
+    return view('admin.orders.detail', compact('order_details'));
   }
 }
